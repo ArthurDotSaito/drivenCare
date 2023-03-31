@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/ArthurDotSaito/drivenCare.git"
+    "url": "git@github.com:ArthurDotSaito/drivenCare.git"
   },
   "author": "ArthurSaito",
   "license": "ISC",
