@@ -12,6 +12,17 @@ async function createPatient(req, res, next){
     }
 }
 
+async function signIn(req, res, next){
+    const {email, password} = req.body;
+    try{
+        const token = await patientServices.signIn({email, password});
+        return res.send({token});
+    }catch(error){
+        next(error)
+    }
+}
+
 export default{
-    createPatient
+    createPatient,
+    signIn
 }

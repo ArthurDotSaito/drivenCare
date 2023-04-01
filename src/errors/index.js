@@ -12,6 +12,14 @@ function duplicatedEmailError(){
     }
 }
 
+function invalidCredentialError(){
+    return{
+        name: "InvalidCredentialError",
+        message:"e-mail or password are incorrect"
+    }
+}
+
 export default{
     unprocessableEntity,
-    duplicatedEmailError}
+    duplicatedEmailError,
+    invalidCredentialError}
