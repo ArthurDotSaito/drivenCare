@@ -5,6 +5,6 @@ import patientController from '../controllers/patientController.js'
 
 const patientRoutes = Router();
 
-patientRoutes.use("/signUp", validadeSchema(signUpSchema), patientController.createPatient);
+patientRoutes.post("/signUp", validadeSchema(signUpSchema), patientController.createPatient);
 
 export default patientRoutes;
