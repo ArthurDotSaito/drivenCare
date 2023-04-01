@@ -11,4 +11,4 @@ async function createPatient({name, email, password}){
     await patientRepositories.createPatient({name, email, password: hashPassword});
 }
 
-export {createPatient}
+export default {createPatient}

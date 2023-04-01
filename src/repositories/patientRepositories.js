@@ -11,4 +11,4 @@ async function findByEmail(email){
     return await connection.query(`SELECT * FROM patients WHERE email = $1`, [email]);
 }
 
-export {createUser, findByEmail}
+export default {createUser, findByEmail}
