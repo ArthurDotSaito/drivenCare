@@ -3,6 +3,7 @@ import errors from '../errors/index.js'
 import bcrypt from 'bcrypt'
 
 async function createPatient({name, email, password}){
+    console.log("patient Services")
     const { rowCount } = await patientRepositories.findByEmail(email);
     if (rowCount) throw errors.duplicatedEmailError(email);
 
