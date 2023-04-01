@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
 async function createPatient({name, email, password}){
-    console.log("patient Services")
     const { rowCount } = await patientRepositories.findByEmail(email);
     if (rowCount) throw errors.duplicatedEmailError(email);
 
