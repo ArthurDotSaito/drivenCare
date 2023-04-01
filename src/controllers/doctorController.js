@@ -10,4 +10,14 @@ async function createDoctor(req, res, next){
     }
 }
 
-export default {createDoctor}
+async function signIn(req, res, next){
+    const {email, password} = req.body;
+    try{
+        const token = await doctorServices.signIn({email, password});
+        return res.send({token});
+    }catch(error){
+        next(error)
+    }
+}
+
+export default {createDoctor, signIn}
