@@ -11,5 +11,8 @@ appointmentRoutes.post("/patients", authentication("patient"), validadeSchema(ap
 appointmentRoutes.get("/patients", authentication("patient"), appointmentController.verifyPatientScheduledAppointments);
 appointmentRoutes.get("/doctors", authentication("doctor"), appointmentController.verifyDoctorScheduledAppointments);
 appointmentRoutes.post("/doctors/:id", authentication("doctor"), appointmentController.confirmAppointment);
+appointmentRoutes.delete("/doctors/:id", authentication("doctor"), appointmentController.cancelAppointment);
+
+
 
 export default appointmentRoutes

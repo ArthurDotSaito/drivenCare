@@ -67,6 +67,13 @@ async function confirmAppointment({status, userId, id}){
     });
 }
 
+async function cancelAppointment({ userId, id}){
+    return await connection.query({
+        text:`DELETE appointments WHERE doctor_id=$1 AND id=$2`,
+        values:[userId, id]
+    });
+}
+
 
 export default {
     findDuplicate, 
@@ -74,4 +81,5 @@ export default {
     verifyPatientScheduledAppointments,
     verifyDoctorScheduledAppointments,
     findAppointmentById,
-    confirmAppointment}
+    confirmAppointment,
+    cancelAppointment}
