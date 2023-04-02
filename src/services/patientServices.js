@@ -1,8 +1,10 @@
 import patientRepositories from '../repositories/patientRepositories.js';
+import doctorRepositories from '../repositories/doctorRepositories.js';
 import errors from '../errors/index.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
+
 
 async function createPatient({name, email, password}){
     const { rowCount } = await patientRepositories.findByEmail(email);
@@ -25,4 +27,11 @@ async function signIn({email, password}){
     return token
 }
 
-export default {createPatient, signIn}
+async function doctorsByName({name}){
+    const doctorName = `%${name}%`;
+    const doctors = await doctorRepositories.findByName(doctorName);
+
+    return doctors
+}
+
+export default {createPatient, signIn, doctorsByName}

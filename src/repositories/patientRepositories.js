@@ -11,4 +11,8 @@ async function findByEmail(email){
     return await connection.query(`SELECT * FROM patients WHERE email = $1`, [email]);
 }
 
-export default {createPatient, findByEmail}
+async function findById(id){
+    return await connection.query(`SELECT * FROM patients WHERE id = $1`, [id]);
+}
+
+export default {createPatient, findByEmail, findById}

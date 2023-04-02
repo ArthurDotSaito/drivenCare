@@ -20,7 +20,18 @@ async function signIn(req, res, next){
     }
 }
 
+async function doctorsByName(req, res, next) {
+    const { name } = req.params;
+    try {
+        const { rows: doctors } = await patientServices.doctorsByName({ name });
+        return res.send({ doctors });
+    } catch (err) {
+        next(err);
+    }
+}
+
 export default{
     createPatient,
-    signIn
+    signIn,
+    doctorsByName
 }

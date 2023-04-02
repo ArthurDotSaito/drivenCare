@@ -12,4 +12,12 @@ async function findByEmail(email){
     return await connection.query(`SELECT * FROM doctors WHERE email = $1`, [email]);
 }
 
-export default {createDoctor, findByEmail}
+async function findById(id){
+    return await connection.query(`SELECT * FROM doctors WHERE id = $1`, [id]);
+}
+
+async function findByName(name) {
+    return await connection.query(` SELECT id, name, specialty, city, address FROM doctors WHERE name LIKE $1`,[name]);
+}
+
+export default {createDoctor, findByEmail, findById, findByName}

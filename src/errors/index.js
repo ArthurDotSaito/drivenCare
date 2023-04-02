@@ -20,7 +20,16 @@ function invalidCredentialError(){
     };
 }
 
+function unauthorizedError() {
+    return {
+        name: "UnauthorizedError",
+        message: "You must sign in to continue"
+    };
+}
+
+
 export default{
     unprocessableEntity,
     duplicatedEmailError,
-    invalidCredentialError}
+    invalidCredentialError,
+    unauthorizedError}
