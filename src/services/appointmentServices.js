@@ -2,6 +2,7 @@ import appointmentRepositories from "../repositories/appointmentRepositories.js"
 import errors from '../errors/index.js';
 import dayjs from "dayjs";
 import patientRepositories from "../repositories/patientRepositories.js";
+import doctorRepositories from "../repositories/doctorRepositories.js";
 
 async function createAppointment({userId, doctorId, day, hour }){
     const { rowCount } = await appointmentRepositories.findDuplicate({doctorId, day, hour});
@@ -37,10 +38,17 @@ async function scheduleHistory({ id }){
     const date = dayjs().format("YYYY-MM-DD");
 
     const { rowCount } = await patientRepositories.findById(id);
-    console.log(rowCount)
     if(!rowCount) throw errors.patientNotFound();
 
     return appointmentRepositories.scheduleHistory({id, date, confirmed:true, canceled:false})
+}
+
+async function findDoctorSchedule({ id }) {
+    const date = dayjs().format("YYYY-MM-DD");
+    const { rowCount } = await doctorRepositories.findById(id);
+    if (!rowCount) throw errors.doctorNotFound();
+    
+    return await appointmentRepositories.findDoctorSchedule({id, date})
 }
 
 export default { 
@@ -49,4 +57,5 @@ export default {
     verifyDoctorScheduledAppointments,
     confirmAppointment,
     cancelAppointment,
-    scheduleHistory}
+    scheduleHistory,
+    findDoctorSchedule}

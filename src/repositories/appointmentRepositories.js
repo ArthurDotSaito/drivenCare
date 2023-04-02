@@ -87,6 +87,18 @@ async function scheduleHistory({id, date, confirmed, canceled}){
     })
 }
 
+async function findDoctorSchedule({id, date}){
+    return await connection.query({
+        text:`SELECT a.id, d.name as doctor, d.specialty, a.appointmentday AS day, a.appointmenthour AS hour,
+        a.confirmed
+        FROM appointments a
+        JOIN doctors d ON d.id = a.doctor_id
+        WHERE a.doctor_id = $1 AND a.appointmentday >= $2
+        ORDER BY a.appointmentday ASC`,
+        values:[id, date]
+    })
+}
+
 export default {
     findDuplicate, 
     createAppointment,
@@ -95,4 +107,5 @@ export default {
     findAppointmentById,
     confirmAppointment,
     cancelAppointment,
-    scheduleHistory}
+    scheduleHistory,
+    findDoctorSchedule}

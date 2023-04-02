@@ -67,10 +67,22 @@ async function scheduleHistory(req, res, next){
     }
 }
 
+async function findDoctorSchedule(req, res, next){
+    try{
+        const { doctorId } = req.params;
+        const { rows: schedule } = await appointmentServices.findDoctorSchedule({id: doctorId})
+        
+        return res.send({schedule})
+    }catch(err){
+        next(err)
+    }
+}
+
 export default {
     createAppointment,
     verifyPatientScheduledAppointments,
     verifyDoctorScheduledAppointments, 
     confirmAppointment,
     cancelAppointment,
-    scheduleHistory}
+    scheduleHistory,
+    findDoctorSchedule}

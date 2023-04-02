@@ -48,7 +48,12 @@ function patientNotFound() {
     };
 }
 
-
+function doctorNotFound() {
+    return {
+        name: "doctorNotFound",
+        message: "The selected doctor was not found"
+    };
+}
 
 export default{
     unprocessableEntity,
