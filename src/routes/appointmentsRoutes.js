@@ -5,9 +5,9 @@ import { appointmentSchema } from "../schema/appointmentSchema.js";
 import appointmentController from "../controllers/appointmentController.js";
 
 
-const appoitmentRoutes = Router();
+const appointmentRoutes = Router();
 
-appoitmentRoutes.post("/patients", authentication("patient"), validadeSchema(appointmentSchema), appointmentController.createAppointment);
+appointmentRoutes.post("/patients", authentication("patient"), validadeSchema(appointmentSchema), appointmentController.createAppointment);
+appointmentRoutes.get("/patients", authentication("patient"), appointmentController.verifyScheduledAppointments);
 
-
-export default appoitmentRoutes
+export default appointmentRoutes

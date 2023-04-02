@@ -29,6 +29,7 @@ function authentication(type){
                     user = foundDoctor
                 }
                 res.locals.user = user
+                console.log(user)
                 next();
             }catch(err){
                 next(err)

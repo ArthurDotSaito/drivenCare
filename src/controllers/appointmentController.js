@@ -12,4 +12,16 @@ async function createAppointment(req, res, next){
     }
 }
 
-export default { createAppointment }
+async function verifyScheduledAppointments(req, res, next){
+    const user = res.locals.user;
+    try{
+        const {rows: schedule } = await appointmentServices.verifyScheduledAppointments({ userId: user.id});
+        return res.sendStatus({schedule});
+    }catch(err){
+        next(err);
+    }
+}
+
+export default {
+    createAppointment,
+    verifyScheduledAppointments }
