@@ -34,4 +34,18 @@ async function doctorsByName({name}){
     return doctors
 }
 
-export default {createPatient, signIn, doctorsByName}
+async function doctorsByLocation({city}){
+    const doctorCity = `%${city}%`;
+    const doctors = await doctorRepositories.findByLocation(doctorCity);
+
+    return doctors
+}
+
+async function doctorsBySpecialty({specialty}){
+    const doctorSpecialty = `%${specialty}%`;
+    const doctors = await doctorRepositories.findBySpecialty(doctorSpecialty);
+
+    return doctors
+}
+
+export default {createPatient, signIn, doctorsByName, doctorsByLocation, doctorsBySpecialty}

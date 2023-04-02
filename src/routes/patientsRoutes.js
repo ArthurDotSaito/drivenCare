@@ -9,5 +9,7 @@ const patientRoutes = Router();
 patientRoutes.post("/signUp", validadeSchema(signUpSchema), patientController.createPatient);
 patientRoutes.post("/signIn", patientController.signIn);
 patientRoutes.get('/doctor-by-name/:name', authentication("patient"), patientController.doctorsByName)
+patientRoutes.get('/doctor-by-location/:city', authentication("patient"), patientController.doctorsByLocation)
+patientRoutes.get('/doctor-by-specialty/:specialty', authentication("patient"), patientController.doctorsBySpecialty)
 
 export default patientRoutes;

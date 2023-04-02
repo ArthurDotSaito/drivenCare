@@ -30,8 +30,30 @@ async function doctorsByName(req, res, next) {
     }
 }
 
+async function doctorsByLocation(req, res, next) {
+    const { city }  = req.params;
+    try {
+        const { rows: doctors } = await patientServices.doctorsByLocation({ city });
+        return res.send({ doctors });
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function doctorsBySpecialty(req, res, next) {
+    const { specialty } = req.params;
+    try {
+        const { rows: doctors } = await patientServices.doctorsBySpecialty({ specialty });
+        return res.send({ doctors });
+    } catch (err) {
+        next(err);
+    }
+}
+
 export default{
     createPatient,
     signIn,
-    doctorsByName
+    doctorsByName,
+    doctorsByLocation,
+    doctorsBySpecialty
 }

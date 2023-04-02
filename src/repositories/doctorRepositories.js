@@ -17,7 +17,21 @@ async function findById(id){
 }
 
 async function findByName(name) {
-    return await connection.query(` SELECT id, name, specialty, city, address FROM doctors WHERE name LIKE $1`,[name]);
+    return await connection.query(` SELECT id, name, specialty, state, city, address FROM doctors WHERE name LIKE $1`,[name]);
 }
 
-export default {createDoctor, findByEmail, findById, findByName}
+async function findByLocation(city) {
+    return await connection.query(` SELECT id, name, specialty, state, city, address FROM doctors WHERE city LIKE $1`,[city]);
+}
+
+async function findBySpecialty(specialty) {
+    return await connection.query(` SELECT id, name, specialty, state, city, address FROM doctors WHERE specialty LIKE $1`,[specialty]);
+}
+
+export default {
+    createDoctor, 
+    findByEmail, 
+    findById, 
+    findByName,
+    findByLocation,
+    findBySpecialty}
