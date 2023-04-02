@@ -3,16 +3,19 @@ import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 dayjs.extend(customParseFormat);
 
 export const validateDate = (value, helpers) => {
-    const { day } = value;
+  const day  = value;
 
-    if (dayjs(day, 'YYYY-MM-DD').isBefore(dayjs(), 'day')) {
-      return helpers.error('any.invalid');
-    }
+  if (!dayjs(day, 'YYYY-MM-DD', true).isValid()) {
+    return helpers.message({custom: 'invalid-date'});
+  }
 
-  // Verify if is saturday or sunday
-    if (dayjs(day, 'YYYY-MM-DD').day() === 6 || dayjs(day, 'YYYY-MM-DD').day() === 0) {
-      return helpers.error('any.invalid');
-    }
+  if (dayjs(day, 'YYYY-MM-DD').isBefore(dayjs(), 'day')) {
+    return helpers.message({custom:'before-today'});
+  }
+
+  if ([6, 0].includes(dayjs(day, 'YYYY-MM-DD').day())) {
+    return helpers.message({custom:'weekend'});
+  }
 
   return value;
 };
