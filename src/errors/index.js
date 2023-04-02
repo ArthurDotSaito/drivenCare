@@ -34,6 +34,13 @@ function duplicatedAppointmentError() {
     };
 }
 
+function appointmentNotFound() {
+    return {
+        name: "appointmentNotFound",
+        message: "The selected appointment was not found"
+    };
+}
+
 
 
 export default{
@@ -41,4 +48,5 @@ export default{
     duplicatedEmailError,
     invalidCredentialError,
     unauthorizedError,
-    duplicatedAppointmentError}
+    duplicatedAppointmentError, 
+    appointmentNotFound}

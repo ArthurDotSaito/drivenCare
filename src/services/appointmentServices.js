@@ -10,16 +10,23 @@ async function createAppointment({userId, doctorId, day, hour }){
 
 async function verifyPatientScheduledAppointments({userId}){
     const date = dayjs().format("YYYY-MM-DD");
-    return await appointmentRepositories.verifyPatientScheduledAppointments({date, userId})
+    return await appointmentRepositories.verifyPatientScheduledAppointments({date, userId});
 }
 
 async function verifyDoctorScheduledAppointments({userId}){
     const date = dayjs().format("YYYY-MM-DD");
-    return await appointmentRepositories.verifyDoctorScheduledAppointments({date, userId})
+    return await appointmentRepositories.verifyDoctorScheduledAppointments({date, userId});
 }
 
+async function confirmAppointment({userId, id}){
+    const {rowCount} = await appointmentRepositories.findAppointmentById({status: false, userId, id});
+    if(!rowCount) throw errors.appointmentNotFound();
+
+    await appointmentRepositories.confirmAppointment({status: true, userId, id})
+}
 
 export default { 
     createAppointment,
     verifyPatientScheduledAppointments,
-    verifyDoctorScheduledAppointments }
+    verifyDoctorScheduledAppointments,
+    confirmAppointment}

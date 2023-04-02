@@ -53,9 +53,25 @@ async function verifyDoctorScheduledAppointments({date, userId}){
     });
 }
 
+async function findAppointmentById({status, userId, id}){
+    return await connection.query({
+        text:`SELECT * FROM appointments WHERE confirmed=$1 AND doctor_id=$2 AND id = $3`,
+        values:[status, userId, id]
+    });
+}
+
+async function confirmAppointment({status, userId, id}){
+    return await connection.query({
+        text:`UPDATE appointments SET confirmed=$1 WHERE doctor_id=$2 AND id=$3`,
+        values:[status, userId, id]
+    });
+}
+
 
 export default {
     findDuplicate, 
     createAppointment,
     verifyPatientScheduledAppointments,
-    verifyDoctorScheduledAppointments}
+    verifyDoctorScheduledAppointments,
+    findAppointmentById,
+    confirmAppointment}

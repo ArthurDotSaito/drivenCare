@@ -32,7 +32,20 @@ async function verifyDoctorScheduledAppointments(req, res, next){
     }
 }
 
+async function confirmAppointment(req, res, next){
+    try{
+        const id = Number(req.params.id);
+        const user = res.locals.user;
+
+        await appointmentServices.confirmAppointment({userId: user.id, id})
+        return res.sendStatus(202);
+    }catch(err){
+        next(err)
+    }
+}
+
 export default {
     createAppointment,
     verifyPatientScheduledAppointments,
-    verifyDoctorScheduledAppointments}
+    verifyDoctorScheduledAppointments, 
+    confirmAppointment}

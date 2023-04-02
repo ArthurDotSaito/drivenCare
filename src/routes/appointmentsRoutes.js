@@ -10,5 +10,6 @@ const appointmentRoutes = Router();
 appointmentRoutes.post("/patients", authentication("patient"), validadeSchema(appointmentSchema), appointmentController.createAppointment);
 appointmentRoutes.get("/patients", authentication("patient"), appointmentController.verifyPatientScheduledAppointments);
 appointmentRoutes.get("/doctors", authentication("doctor"), appointmentController.verifyDoctorScheduledAppointments);
+appointmentRoutes.post("/doctors/:id", authentication("doctor"), appointmentController.confirmAppointment);
 
 export default appointmentRoutes
