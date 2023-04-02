@@ -58,8 +58,8 @@ async function cancelAppointment(req, res, next){
 
 async function scheduleHistory(req, res, next){
     try{
-        const { id } = req.params;
-        const { rows: scheduleHistory } = await appointmentServices.scheduleHistory({id});
+        const { patientId } = req.params;
+        const { rows: scheduleHistory } = await appointmentServices.scheduleHistory({id: patientId});
         
         return res.send({scheduleHistory})
     }catch(err){

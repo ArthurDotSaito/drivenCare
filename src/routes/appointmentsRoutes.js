@@ -10,9 +10,9 @@ const appointmentRoutes = Router();
 appointmentRoutes.post("/patients", authentication("patient"), validadeSchema(appointmentSchema), appointmentController.createAppointment);
 appointmentRoutes.get("/patients", authentication("patient"), appointmentController.verifyPatientScheduledAppointments);
 appointmentRoutes.get("/doctors", authentication("doctor"), appointmentController.verifyDoctorScheduledAppointments);
-appointmentRoutes.get("/doctors/:id", authentication("doctor"), appointmentController.scheduleHistory);
-appointmentRoutes.post("/doctors/:id", authentication("doctor"), appointmentController.confirmAppointment);
-appointmentRoutes.delete("/doctors/:id", authentication("doctor"), appointmentController.cancelAppointment);
+appointmentRoutes.get("/doctors/:patientId", authentication("doctor"), appointmentController.scheduleHistory);
+appointmentRoutes.post("/doctors/confirm/:id", authentication("doctor"), appointmentController.confirmAppointment);
+appointmentRoutes.post("/doctors/cancel/:id", authentication("doctor"), appointmentController.cancelAppointment);
 
 
 
