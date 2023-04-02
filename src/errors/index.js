@@ -27,9 +27,18 @@ function unauthorizedError() {
     };
 }
 
+function duplicatedAppointmentError() {
+    return {
+        name: "duplicatedAppointmentError",
+        message: "There's already another appointment schedule for selected time"
+    };
+}
+
+
 
 export default{
     unprocessableEntity,
     duplicatedEmailError,
     invalidCredentialError,
-    unauthorizedError}
+    unauthorizedError,
+    duplicatedAppointmentError}
