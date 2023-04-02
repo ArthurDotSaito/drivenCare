@@ -56,9 +56,21 @@ async function cancelAppointment(req, res, next){
     }
 }
 
+async function scheduleHistory(req, res, next){
+    try{
+        const { id } = req.params;
+        const { rows: scheduleHistory } = await appointmentServices.scheduleHistory({id});
+        
+        return res.send({scheduleHistory})
+    }catch(err){
+        next(err)
+    }
+}
+
 export default {
     createAppointment,
     verifyPatientScheduledAppointments,
     verifyDoctorScheduledAppointments, 
     confirmAppointment,
-    cancelAppointment}
+    cancelAppointment,
+    scheduleHistory}

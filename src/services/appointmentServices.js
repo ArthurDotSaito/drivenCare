@@ -1,6 +1,7 @@
 import appointmentRepositories from "../repositories/appointmentRepositories.js";
 import errors from '../errors/index.js';
 import dayjs from "dayjs";
+import patientRepositories from "../repositories/patientRepositories.js";
 
 async function createAppointment({userId, doctorId, day, hour }){
     const { rowCount } = await appointmentRepositories.findDuplicate({doctorId, day, hour});
@@ -32,9 +33,20 @@ async function cancelAppointment({userId, id}){
     await appointmentRepositories.cancelAppointment({status:true, userId, id})
 }
 
+async function scheduleHistory({ id }){
+    const date = dayjs().format("YYYY-MM-DD");
+
+    const { rowCount } = await patientRepositories.findById(id);
+    console.log(rowCount)
+    if(!rowCount) throw errors.patientNotFound();
+
+    return appointmentRepositories.scheduleHistory({id, date, confirmed:true, canceled:false})
+}
+
 export default { 
     createAppointment,
     verifyPatientScheduledAppointments,
     verifyDoctorScheduledAppointments,
     confirmAppointment,
-    cancelAppointment}
+    cancelAppointment,
+    scheduleHistory}

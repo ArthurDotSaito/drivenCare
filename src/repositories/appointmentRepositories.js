@@ -16,8 +16,6 @@ async function createAppointment({userId, doctorId, day, hour }){
 }
 
 async function verifyPatientScheduledAppointments({date, userId}){
-    console.log(userId)
-    console.log(date)
     return await connection.query({
         text:
         `
@@ -35,8 +33,6 @@ async function verifyPatientScheduledAppointments({date, userId}){
 }
 
 async function verifyDoctorScheduledAppointments({date, userId}){
-    console.log(userId)
-    console.log(date)
     return await connection.query({
         text:
         `
@@ -75,6 +71,22 @@ async function cancelAppointment({status, userId, id}){
     });
 }
 
+async function scheduleHistory({id, date, confirmed, canceled}){
+    return await connection.query({
+        text: `
+        SELECT 
+        a.id, p.name AS patient, d.name AS doctor, d.specialty, a.appointmentday AS day, a.appointmenthour AS hour,
+        a.confirmed, a.canceled  
+        FROM appointments a 
+        JOIN patients p ON p.id = a.patient_id 
+        JOIN doctors d ON d.id = a.doctor_id 
+        WHERE a.patient_id = $1 AND a.appointmentday >= $2 AND a.confirmed= $3 AND a.canceled = $4
+        ORDER BY a.appointmenthour ASC
+        `,
+        values:[id, date, confirmed, canceled]
+    })
+}
+
 export default {
     findDuplicate, 
     createAppointment,
@@ -82,4 +94,5 @@ export default {
     verifyDoctorScheduledAppointments,
     findAppointmentById,
     confirmAppointment,
-    cancelAppointment}
+    cancelAppointment,
+    scheduleHistory}

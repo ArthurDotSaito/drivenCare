@@ -41,6 +41,13 @@ function appointmentNotFound() {
     };
 }
 
+function patientNotFound() {
+    return {
+        name: "patiententNotFound",
+        message: "The selected patient was not found"
+    };
+}
+
 
 
 export default{
@@ -49,4 +56,5 @@ export default{
     invalidCredentialError,
     unauthorizedError,
     duplicatedAppointmentError, 
-    appointmentNotFound}
+    appointmentNotFound,
+    patientNotFound}
