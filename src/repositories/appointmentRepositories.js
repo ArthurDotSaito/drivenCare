@@ -18,17 +18,20 @@ async function createAppointment({userId, doctorId, day, hour }){
 async function verifyScheduledAppointments({date, userId}){
     console.log(userId)
     console.log(date)
-    return await connection.query(
+    return await connection.query({
+        text:
         `
         SELECT 
-        a.id, p.name AS patient, d.name AS doctor, d.specialty, a.appointmentday, a.appointmenthour,
+        a.id, p.name AS patient, d.name AS doctor, d.specialty, a.appointmentday AS day, a.appointmenthour AS hour,
         a.confirmed, a.canceled  
         FROM appointments a 
         JOIN patients p ON p.id = a.patient_id 
         JOIN doctors d ON d.id = a.doctor_id 
-        WHERE a.patient_id = 1 AND a.appointmentday >= '2023-04-02'
-        `
-    );
+        WHERE a.patient_id = $1 AND a.appointmentday >= $2
+        ORDER BY a.appointmenthour ASC
+        `,
+        values:[userId, date]
+    });
 }
 
 export default {

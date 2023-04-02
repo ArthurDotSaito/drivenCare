@@ -16,7 +16,7 @@ async function verifyScheduledAppointments(req, res, next){
     const user = res.locals.user;
     try{
         const {rows: schedule } = await appointmentServices.verifyScheduledAppointments({ userId: user.id});
-        return res.sendStatus({schedule});
+        return res.send({schedule});
     }catch(err){
         next(err);
     }
