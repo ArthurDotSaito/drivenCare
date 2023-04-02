@@ -67,13 +67,13 @@ async function confirmAppointment({status, userId, id}){
     });
 }
 
-async function cancelAppointment({ userId, id}){
+async function cancelAppointment({status, userId, id}){
+    console.log("cancel")
     return await connection.query({
-        text:`DELETE appointments WHERE doctor_id=$1 AND id=$2`,
-        values:[userId, id]
+        text:`UPDATE appointments SET canceled=$1 WHERE doctor_id=$2 AND id=$3`,
+        values:[status, userId, id]
     });
 }
-
 
 export default {
     findDuplicate, 

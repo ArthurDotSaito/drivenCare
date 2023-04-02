@@ -49,7 +49,7 @@ async function cancelAppointment(req, res, next){
         const id = Number(req.params.id);
         const user = res.locals.user;
 
-        await appointmentServices.confirmAppointment({userId: user.id, id})
+        await appointmentServices.cancelAppointment({userId: user.id, id})
         return res.sendStatus(202);
     }catch(err){
         next(err)

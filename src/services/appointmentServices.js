@@ -26,10 +26,10 @@ async function confirmAppointment({userId, id}){
 }
 
 async function cancelAppointment({userId, id}){
-    const {rowCount} = await appointmentRepositories.findAppointmentById({status: false, userId, id});
+    const {rowCount} = await appointmentRepositories.findAppointmentById({status:true, userId, id});
     if(!rowCount) throw errors.appointmentNotFound();
 
-    await appointmentRepositories.cancelAppointment({ userId, id})
+    await appointmentRepositories.cancelAppointment({status:true, userId, id})
 }
 
 export default { 
