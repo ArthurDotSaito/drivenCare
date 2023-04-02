@@ -25,7 +25,6 @@ function authentication(type){
                     user = foundPatient;
                 }else if(type === "doctor"){
                     const {rows: [foundDoctor]} = await doctorRepositories.findById(decoded.userId)
-                    if(!foundDoctor) throw errors.unauthorizedError();
                     user = foundDoctor
                 }
                 res.locals.user = user

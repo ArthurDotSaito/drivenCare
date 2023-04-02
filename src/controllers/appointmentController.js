@@ -12,10 +12,20 @@ async function createAppointment(req, res, next){
     }
 }
 
-async function verifyScheduledAppointments(req, res, next){
+async function verifyPatientScheduledAppointments(req, res, next){
     const user = res.locals.user;
     try{
-        const {rows: schedule } = await appointmentServices.verifyScheduledAppointments({ userId: user.id});
+        const {rows: schedule } = await appointmentServices.verifyPatientScheduledAppointments({ userId: user.id});
+        return res.send({schedule});
+    }catch(err){
+        next(err);
+    }
+}
+
+async function verifyDoctorScheduledAppointments(req, res, next){
+    const user = res.locals.user;
+    try{
+        const {rows: schedule } = await appointmentServices.verifyDoctorScheduledAppointments({ userId: user.id});
         return res.send({schedule});
     }catch(err){
         next(err);
@@ -24,4 +34,5 @@ async function verifyScheduledAppointments(req, res, next){
 
 export default {
     createAppointment,
-    verifyScheduledAppointments }
+    verifyPatientScheduledAppointments,
+    verifyDoctorScheduledAppointments}

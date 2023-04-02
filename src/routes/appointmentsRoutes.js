@@ -8,6 +8,7 @@ import appointmentController from "../controllers/appointmentController.js";
 const appointmentRoutes = Router();
 
 appointmentRoutes.post("/patients", authentication("patient"), validadeSchema(appointmentSchema), appointmentController.createAppointment);
-appointmentRoutes.get("/patients", authentication("patient"), appointmentController.verifyScheduledAppointments);
+appointmentRoutes.get("/patients", authentication("patient"), appointmentController.verifyPatientScheduledAppointments);
+appointmentRoutes.get("/doctors", authentication("doctor"), appointmentController.verifyDoctorScheduledAppointments);
 
 export default appointmentRoutes

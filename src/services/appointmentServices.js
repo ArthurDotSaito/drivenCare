@@ -8,11 +8,18 @@ async function createAppointment({userId, doctorId, day, hour }){
     await appointmentRepositories.createAppointment({userId, doctorId, day, hour})
 }
 
-async function verifyScheduledAppointments({userId}){
+async function verifyPatientScheduledAppointments({userId}){
     const date = dayjs().format("YYYY-MM-DD");
-    return await appointmentRepositories.verifyScheduledAppointments({date, userId})
+    return await appointmentRepositories.verifyPatientScheduledAppointments({date, userId})
 }
+
+async function verifyDoctorScheduledAppointments({userId}){
+    const date = dayjs().format("YYYY-MM-DD");
+    return await appointmentRepositories.verifyDoctorScheduledAppointments({date, userId})
+}
+
 
 export default { 
     createAppointment,
-    verifyScheduledAppointments }
+    verifyPatientScheduledAppointments,
+    verifyDoctorScheduledAppointments }
